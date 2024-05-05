@@ -67,7 +67,7 @@
 % 独自のコード用カラーボックスの定義
 \newtcolorbox{CODE}[2][]{
   enhanced, breakable,  % ページをまたぐのに必要
-  arc=1pt, colframe=TextColor, boxrule=1pt, colback=white,
+  arc=1pt, colframe=TextColor, boxrule=1pt, colback=Snow1,
   title={\addfontfeatures{Color=white}\addCJKfontfeatures{Color=white}\textbf{#2}},
   top=0pt, right=4pt, left=4pt, bottom=0pt,  % パディング
   #1
@@ -139,8 +139,15 @@ for Time Series Forecasting \rule[-0.4em]{0pt}{1.3em}} \\
 \rule[-0.5em]{0pt}{0pt}} \\
 {\mpblack\fontsize{30pt}{10pt}\selectfont クッキー}
 }}}
-\AtPageCenter{\put(0.017\textwidth, -0.45\textheight){
-\includegraphics[width=0.45\textwidth]{../images/ab.png}
+% バージョン記述
+\AtPageCenter{\put(-0.43\textwidth, -0.415\textheight){\parbox{.86\textwidth}{%
+{\mpblacke\fontsize{27pt}{10pt}\selectfont Ver}
+\raisebox{0.1em}{\mpblack\fontsize{25pt}{10pt}\selectfont 技術書典}
+{\mpblacke\fontsize{27pt}{10pt}\selectfont 16}
+}}}
+% イラスト挿入
+\AtPageCenter{\put(0.03\textwidth, -0.45\textheight){
+\includegraphics[width=0.44\textwidth]{../images/ab.png}
 }}
 }
 
