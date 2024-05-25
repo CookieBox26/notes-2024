@@ -21,6 +21,10 @@
 \definecolor{PaleIris2}{RGB}{173,165,223}
 \definecolor{PaleGold2}{RGB}{248,222,75}
 
+% 数式フォント用
+\usepackage[mathrm=sym]{unicode-math}
+\usepackage{amsmath}
+
 % フォント定義 (日本語は小さめにスケール)
 % 等幅フォントにはシンタクスハイライトを適用するために色を設定しない
 % その代わりコード入りカラーボックスはページをまたげない
@@ -64,34 +68,58 @@
   showstringspaces=false,  % 半角スペース記号を表示しない (コピペの邪魔)
 }
 
+% 独自のセリフ用カラーボックスの定義
+% 共通設定
+\tcbset{
+  serifubox/.style={
+    enhanced,  % タイトルボックスの表示に必要
+    breakable,  % ページをまたぐのに必要
+    arc=7pt, top=7pt, right=7pt, left=7pt, bottom=7pt,  % パディング
+    boxrule=0pt, frame hidden,  % フレーム隠蔽
+    grow to left by=-31pt,  % キャラクター画像を表示するため左にマージン
+    enlarge bottom by=-1pt, title={\,},
+    attach boxed title to top left={xshift=-34pt, yshift=-40pt},
+    boxed title style={
+      enhanced, arc=19pt, top=17pt, right=15pt, left=17pt, bottom=17pt,
+      boxrule=0pt, frame hidden, underlay={\begin{tcbclipinterior}
+        \includegraphics[width=39pt,keepaspectratio]{#1}\end{tcbclipinterior}},
+    }
+  }
+}
+% 部長
+\newtcolorbox{SERIFU1}[1][]{
+  serifubox={../images/a0_.png},
+  colback=PaleIris, colbacktitle=PaleIris2, #1
+}
+% 副部長
+\newtcolorbox{SERIFU2}[1][]{
+  serifubox={../images/b0_.png},
+  colback=PaleGold, colbacktitle=PaleGold2, #1
+}
+
+% 独自の汎用カラーボックスの定義
+% 共通設定
+\tcbset{
+  custombox/.style={
+    enhanced,  % タイトルボックスの表示に必要
+    breakable,  % ページをまたぐのに必要
+    arc=2pt, colframe=TextColor, boxrule=1pt, colback=Snow1,
+    right=7pt, left=7pt,
+    title={\addfontfeatures{Color=white}\addCJKfontfeatures{Color=white}\textbf{#1}}
+  }
+}
 % 独自のコード用カラーボックスの定義
 \newtcolorbox{CODE}[2][]{
-  enhanced, breakable,  % ページをまたぐのに必要
-  arc=1pt, colframe=TextColor, boxrule=1pt, colback=Snow1,
-  title={\addfontfeatures{Color=white}\addCJKfontfeatures{Color=white}\textbf{#2}},
-  top=0pt, right=4pt, left=4pt, bottom=0pt,  % パディング
-  #1
+  custombox={#2}, top=0pt, bottom=0pt, #1
+}
+% 独自の命題枠の定義
+\newtcolorbox{PROP}[2][]{
+  custombox={#2}, top=7pt, bottom=7pt, #1
 }
 
-% 独自のセリフ用カラーボックスの定義
-\newtcolorbox{SERIFU}[4][]{
-  enhanced,  % タイトルボックスの表示に必要
-  breakable,  % ページをまたぐのに必要
-  arc=7pt, top=7pt, right=7pt, left=7pt, bottom=7pt,  % パディング
-  boxrule=0pt, frame hidden,  % フレーム隠蔽
-  grow to left by=-31pt,  % キャラクター画像を表示するため左にマージン
-  enlarge bottom by=-1pt, title={\,}, colback=#3, colbacktitle=#4,
-  attach boxed title to top left={xshift=-34pt, yshift=-40pt},
-  boxed title style={
-    enhanced, arc=19pt, top=17pt, right=15pt, left=17pt, bottom=17pt,
-    boxrule=0pt, frame hidden, underlay={\begin{tcbclipinterior}
-      \includegraphics[width=39pt,keepaspectratio]{#2}\end{tcbclipinterior}},
-  },
-  #1
-}
-
+% ハイパーリンク
 \PassOptionsToPackage{hyphens}{url}
-\usepackage[colorlinks=true]{hyperref}  % ハイパーリンク
+\usepackage[colorlinks=true]{hyperref}
 \hypersetup{urlcolor=SteelBlue3}
 
 % ======================================================================
@@ -124,16 +152,16 @@
 \newcommand*{\mysectiontitle}{第{\themycounter}話 \, ほげほげ}
 \section*{\mysectiontitle}\addcontentsline{toc}{section}{\mysectiontitle}
 
-\begin{SERIFU}[enlarge top by=3pt]{../images/a0_.png}{PaleIris}{PaleIris2}
+\begin{SERIFU1}[enlarge top by=3pt]
 こんにちは Hello こんにちは{\bf こんにちは}こんにちはこんにちは
 こんにちはこんにちはこんにちはこんにちはこんにちはこんにちは。
 こんにちは Hello こんにちは{\bf こんにちは}こんにちはこんにちは
 こんにちはこんにちはこんにちはこんにちはこんにちはこんにちは。
 こんにちは Hello こんにちは{\bf こんにちは}こんにちはこんにちは
 こんにちはこんにちはこんにちはこんにちはこんにちはこんにちは。
-\end{SERIFU}
+\end{SERIFU1}
 
-\begin{SERIFU}[enlarge bottom by=0pt]{../images/b0_.png}{PaleGold}{PaleGold2}
+\begin{SERIFU2}
 こんにちは Hello こんにちは{\bf こんにちは}こんにちはこんにちは
 こんにちはこんにちはこんにちはこんにちはこんにちはこんにちは。
 こんにちは Hello こんにちは{\bf こんにちは}こんにちはこんにちは
@@ -144,7 +172,7 @@
 こんにちはこんにちはこんにちはこんにちはこんにちはこんにちは。
 こんにちは Hello こんにちは{\bf こんにちは}こんにちはこんにちは
 こんにちはこんにちはこんにちはこんにちはこんにちはこんにちは。
-\end{SERIFU}
+\end{SERIFU2}
 
 \stepcounter{mycounter}
 \renewcommand*{\mysectiontitle}{第{\themycounter}話 \, ふがふが}
@@ -173,15 +201,19 @@ plt.rcParams['grid.linewidth'] = 1.5
 \renewcommand*{\mysectiontitle}{第{\themycounter}話 \, ほげほげふがふが}
 \section*{\mysectiontitle}\addcontentsline{toc}{section}{\mysectiontitle}
 
-\begin{SERIFU}[enlarge top by=3pt, enlarge bottom by=5pt]
-{../images/b0_.png}{PaleGold}{PaleGold2}
+\begin{SERIFU1}[enlarge top by=3pt, enlarge bottom by=5pt]
 こんにちは Hello こんにちは{\bf こんにちは}こんにちはこんにちは
 こんにちはこんにちはこんにちはこんにちはこんにちはこんにちは。
-こんにちは Hello こんにちは{\bf こんにちは}こんにちはこんにちは
-こんにちはこんにちはこんにちはこんにちはこんにちはこんにちは。
-こんにちは Hello こんにちは{\bf こんにちは}こんにちはこんにちは
-こんにちはこんにちはこんにちはこんにちはこんにちはこんにちは。
-\end{SERIFU}
+\end{SERIFU1}
+
+\begin{PROP}{定理 0.1.0 〈\, 制約がないときの1次の必要条件 \,〉}
+$x^\ast$ を問題(P)の局所最適解とする。但し、$f$ は $x^\ast$ で微分可能であるものとする。
+　(P)　$\displaystyle \underset{x \in \mathbb{R}^n}{\mathrm{minimize}} \; \; f(x)$
+このとき，以下を満たす $s \in \mathbb{R}^n$ は存在しない。
+\begin{eqnarray*}
+\nabla f(x^\ast)^\top s < 0
+\end{eqnarray*}
+\end{PROP}
 
 \rightline{\large\bf 終わり}
 
