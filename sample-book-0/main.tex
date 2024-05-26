@@ -28,24 +28,12 @@
 % フォント定義 (日本語は小さめにスケール)
 % 等幅フォントにはシンタクスハイライトを適用するために色を設定しない
 % その代わりコード入りカラーボックスはページをまたげない
-\setmainfont[
-  Color=TextColor, BoldFont={[MPLUS1-ExtraBold.ttf]},
-]{[MPLUS1-Regular.ttf]}  % 英数字本文
-\setCJKmainfont[
-  Scale=0.95, Color=TextColor, BoldFont={[MPLUS1-ExtraBold.ttf]},
-]{[MPLUS1-Regular.ttf]}  % 日本語本文
-\setCJKsansfont[
-  Scale=0.95, Color=TextColor,
-]{[MPLUS1-ExtraBold.ttf]}  % 日本語見出し
-\setsansfont[
-  Color=TextColor,
-]{[MPLUS1-ExtraBold.ttf]}  % 英数字見出し
-\setmonofont[
-  Scale=1.0
-]{[MPLUS1Code-Regular.ttf]}  % 等幅
-\setCJKmonofont[
-  Scale=0.95
-]{[MPLUS1Code-Regular.ttf]}  % 日本語等幅
+\setmainfont[Color=TextColor, BoldFont={MPLUS1-ExtraBold.ttf},]{MPLUS1-Regular.ttf}
+\setCJKmainfont[Scale=0.95, Color=TextColor, BoldFont={MPLUS1-ExtraBold.ttf}]{MPLUS1-Regular.ttf}
+\setCJKsansfont[Scale=0.95, Color=TextColor]{MPLUS1-ExtraBold.ttf}
+\setsansfont[Color=TextColor]{MPLUS1-ExtraBold.ttf}
+\setmonofont[Scale=1.0]{MPLUS1Code-Regular.ttf}  % 等幅
+\setCJKmonofont[Scale=0.95]{MPLUS1Code-Regular.ttf}  % 日本語等幅
 
 % 目次に点線を引く設定
 \makeatletter
